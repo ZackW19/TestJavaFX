@@ -114,7 +114,7 @@ public class LoginController implements Initializable {
             return;
         }
 
-        if (!userDao.register(login, password)){  //zmiana z userDao na !userDao.
+        if (!userDao.register(login, password)){  
             Utils.createSimpleDialog("Rejestracja", "", "Dodano poprawnie!");
         }else{
             Utils.createSimpleDialog("Rejestracja","", "Błąd dodawania!");
