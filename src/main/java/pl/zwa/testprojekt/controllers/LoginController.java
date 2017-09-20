@@ -108,7 +108,7 @@ public class LoginController implements Initializable {
 
         String login = textLoginR.getText();
         String password = textPasswordR.getText();
-        //String passwordR = textRepeatPasswordR.getText();
+    
 
         if(!checkRegisterData()){
             return;
