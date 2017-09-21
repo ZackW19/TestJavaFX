@@ -124,13 +124,13 @@ public class LoginController implements Initializable {
 
         String login = textLoginR.getText();
         String password = textPasswordR.getText();
-        //String passwordR = textRepeatPasswordR.getText();
+    
 
         if(!checkRegisterData()){
             return;
         }
 
-        if (!userDao.register(login, password)){  //zmiana z userDao na !userDao.
+        if (!userDao.register(login, password)){  
             Utils.createSimpleDialog("Rejestracja", "", "Dodano poprawnie!");
         }else{
             Utils.createSimpleDialog("Rejestracja","", "Login jest już zajęty!");
