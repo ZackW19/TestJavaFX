@@ -1,14 +1,19 @@
 package pl.zwa.testprojekt.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import pl.zwa.testprojekt.models.UserSession;
 import pl.zwa.testprojekt.models.dao.UserDao;
 import pl.zwa.testprojekt.models.dao.Utils;
 import pl.zwa.testprojekt.models.dao.impl.UserDaoImpl;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -89,7 +94,18 @@ public class LoginController implements Initializable {
             userSession.setUsername(login);
             userSession.setLoggedIn(true);
             //komunikat
-            Utils.createSimpleDialog("Logowanie", "", "Zalogowano poprawnie!");
+             //  Utils.createSimpleDialog("Logowanie", "", "Zalogowano poprawnie!");
+
+            //nowy stage - okienko otwierane po poprawnym zalogowaniu
+            try {
+                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("mainView.fxml"));
+                Stage stageRoot = (Stage) buttonLogin.getScene().getWindow();
+                stageRoot.setScene(new Scene(root, 600, 400));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             labelLoginName.setVisible(false);
             labelLoginText1.setVisible(false);
             labelLoginText2.setVisible(false);
@@ -117,7 +133,7 @@ public class LoginController implements Initializable {
         if (!userDao.register(login, password)){  //zmiana z userDao na !userDao.
             Utils.createSimpleDialog("Rejestracja", "", "Dodano poprawnie!");
         }else{
-            Utils.createSimpleDialog("Rejestracja","", "Błąd dodawania!");
+            Utils.createSimpleDialog("Rejestracja","", "Login jest już zajęty!");
 
         }
     }

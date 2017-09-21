@@ -2,6 +2,7 @@ package pl.zwa.testprojekt.models.dao.impl;
 
 import pl.zwa.testprojekt.models.MysqlConnector;
 import pl.zwa.testprojekt.models.dao.UserDao;
+import pl.zwa.testprojekt.models.dao.Utils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,9 +24,7 @@ public class UserDaoImpl implements UserDao {
                 return false;
             }
 
-            return (resultSet.getString("password").equals(password));
-
-
+            return resultSet.getString("password").equals(Utils.shaHash(password));  //szyfrowanie przy logowaniu
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -52,11 +51,12 @@ public class UserDaoImpl implements UserDao {
             );
             preparedStatementInsert.setInt(1,0);
             preparedStatementInsert.setString(2, name);
-            preparedStatementInsert.setString(3, password);
+            preparedStatementInsert.setString(3, Utils.shaHash(password));  //hashowanie hasła
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            //preparedStatement.execute();
+
             preparedStatementInsert.execute();
+            preparedStatement.close();
             preparedStatementInsert.close();
         } catch (SQLException e) {
             e.printStackTrace();
